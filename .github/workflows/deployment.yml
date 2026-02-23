@@ -1,0 +1,76 @@
+﻿name: deployment
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build_test:
+    name: Build + Test (.NET)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK (from global.json)
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: |
+            **/*.csproj
+            **/*.props
+            **/*.targets
+            **/packages.lock.json
+
+      - name: Restore
+        run: dotnet restore JetControl.sln
+
+      - name: Build
+        run: dotnet build JetControl.sln -c Release --no-restore
+
+      - name: Test (unit tests)
+        run: dotnet test JetControl.sln -c Release --no-build
+
+      # Timing tests are intentionally NOT run by default (can be flaky).
+      # - name: Test (timing smoke tests)
+      #   env:
+      #     RUN_TIMING_TESTS: "true"
+      #   run: dotnet test JetControl.sln -c Release --no-build
+
+  publish_artifact:
+    name: Publish Runner Artifact
+    runs-on: ubuntu-latest
+    needs: build_test
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK (from global.json)
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: |
+            **/*.csproj
+            **/*.props
+            **/*.targets
+            **/packages.lock.json
+
+      - name: Publish (self-contained = false)
+        run: dotnet publish src/JetControl.Runner/JetControl.Runner.csproj -c Release -o artifacts/publish
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: JetControl.Runner-publish
+          path: artifacts/publish

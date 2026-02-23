@@ -1,0 +1,26 @@
+﻿{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "command": "dotnet",
+      "type": "process",
+      "args": ["build", "JetControl.sln", "-c", "Debug"],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "test",
+      "command": "dotnet",
+      "type": "process",
+      "args": ["test", "JetControl.sln", "-c", "Debug"],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "run",
+      "command": "dotnet",
+      "type": "process",
+      "args": ["run", "--project", "src/JetControl.Runner/JetControl.Runner.csproj"],
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}

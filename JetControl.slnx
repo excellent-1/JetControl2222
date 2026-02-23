@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/JetControl.Runner/JetControl.Runner.csproj" />
+    <Project Path="src/JetControl/JetControl.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/JetControl.Tests/JetControl.Tests.csproj" />
+  </Folder>
+</Solution>

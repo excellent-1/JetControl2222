@@ -1,0 +1,16 @@
+﻿{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET Run Runner",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/src/JetControl.Runner/bin/Debug/net8.0/JetControl.Runner.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "stopAtEntry": false
+    }
+  ]
+}
