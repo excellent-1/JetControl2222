@@ -37,4 +37,7 @@ public struct JetCommands
     // Summary flags
     public bool BitOk;
     public bool WeaponReady;
+
+    // Set once per tick by RateDividerTask. Tasks use it to throttle Information logs.
+    public bool IsLogTick;
 }

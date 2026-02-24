@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Serilog;
+using Serilog.Events;
 
 namespace JetControl;
 
@@ -14,6 +15,9 @@ public static class JetTaskFactory
     {
         var tasks = new List<IPerTickTask>
         {
+            // Must run first so the rest of the tasks can decide whether to print logs this tick.
+            new RateDividerTask(everyNthTick: 1000),
+            
             // Pre-flight / BIT
             new BuiltInTestSummaryTask(log),
             new FlightControlSurfaceBitTask(log),
@@ -25,7 +29,8 @@ public static class JetTaskFactory
             new WeaponReadinessTask(log),
         };
 
-        if (!enforceBudgets)
+        // If Debug logging is enabled, do NOT enforce budgets (logging overhead can break microsecond budgets).
+        if (!enforceBudgets || log.IsEnabled(LogEventLevel.Debug))
             return tasks;
 
         // OCP via decorator: add budget enforcement without changing task implementations.

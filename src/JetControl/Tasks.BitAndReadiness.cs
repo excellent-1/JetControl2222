@@ -51,7 +51,8 @@ public sealed class BuiltInTestSummaryTask : IPerTickTask
 
         commands.BitOk = ok;
 
-        _log.Information("BIT={BitOk}", ok);
+        if (commands.IsLogTick) // This keeps computations running every tick, but prints “status” logs only every 1000 ticks.
+            _log.Information("BIT={BitOk}", ok);
     }
 }
 
@@ -150,6 +151,7 @@ public sealed class WeaponReadinessTask : IPerTickTask
 
         commands.WeaponReady = ready;
 
-        _log.Information("WeaponReady={Ready}", ready);
+        if (commands.IsLogTick) // This keeps computations running every tick, but prints “status” logs only every 1000 ticks.
+            _log.Information("WeaponReady={Ready}", ready);
     }
 }
