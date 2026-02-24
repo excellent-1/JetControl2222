@@ -1,0 +1,30 @@
+PS C:\JetControl2222Hz> make test-timing
+cmd /c "set RUN_TIMING_TESTS=true&& dotnet test tests/JetControl.Tests/JetControl.Tests.csproj -c Debug --no-build"
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.3)
+[xUnit.net 00:00:00.20]   Discovering: JetControl.Tests
+[xUnit.net 00:00:00.28]   Discovered:  JetControl.Tests
+[xUnit.net 00:00:00.32]   Starting:    JetControl.Tests
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.3)
+[xUnit.net 00:00:00.20]   Discovering: JetControl.Tests
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.3)
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.3)
+[xUnit.net 00:00:00.20]   Discovering: JetControl.Tests
+[xUnit.net 00:00:00.28]   Discovered:  JetControl.Tests
+[xUnit.net 00:00:00.32]   Starting:    JetControl.Tests
+[xUnit.net 00:00:00.44]   Finished:    JetControl.Tests
+  JetControl.Tests test net10.0 succeeded (2.5s)
+
+Test summary: total: 4, failed: 0, succeeded: 4, skipped: 0, duration: 2.4s
+Build succeeded in 3.8s
+
+env` is correct in makefiles: `$$` escapes to a single `$`.) If you also want it to work on Linux/macOS, we can add an OS switch, but this is enough for your Windows environment. --- 
+
+## 2) Fix the runtime budget failure (`make run`) ### Why it’s failing Your `BudgetEnforcingTask` is wrapping tasks that do: ```csharp _log.Information("BIT={BitOk}", ok); 
+
+``` Console logging at `Information` level is **slow** (often hundreds of microseconds to milliseconds). Since you set the budget to **60 µs**, it will blow up. ### Correct approach - Keep your *per-tick loop* free of heavy I/O. - Either: - **disable budget enforcement in the runner**, or - **lower logging level** to reduce output, or - **exclude logging from the budget measurement** (harder), or - make “logging tasks” run at a slower rate than 2222 Hz (realistic). 
+
+### Quick fix (recommended): don’t enforce budgets in the Runner demo Change this line in 
+    `src/JetControl.Runner/Program.cs`: ```csharp var tasks = TaskFactory.CreatePerTickTasks(log, enforceBudgets: true); ``` 
+    to: ```csharp var tasks = TaskFactory.CreatePerTickTasks(log, enforceBudgets: false); ``` Now `make run` won’t throw. 
+
+### Better fix: keep enforcement but disable console logging noise If you want to keep enforcement on, reduce log overhead: **A)** Set minimum level to `Warning` (or `Error`) in the runner: ```csharp Log.Logger = new LoggerConfiguration() .MinimumLevel.Warning() .WriteTo.Console() .CreateLogger(); ``` **B)** And in your tasks, change most `Information` logs to `Debug` so they won’t run at `Warning` level. But even then, console sinks are still too slow for microsecond budgets if they run every tick. --- ## Suggested “realistic” rule for this project - **Hard budget enforcement** should be used in **tests/microbench**, not in the interactive console demo. - In the demo runner, log at human-friendly intervals (e.g., once every N ticks). If you want, I can: - modify `TaskFactory` to wrap tasks only when `enforceBudgets` is true **and** `log.IsEnabled(LogEventLevel.Debug)` is false, - or add a `RateDividerTask` so BIT/weapon logs print every 1000 ticks instead of every tick.

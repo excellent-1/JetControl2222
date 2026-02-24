@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("JetControl")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1d95d636ba9e714e1e92592c45951b4221bfa705")]
 [assembly: System.Reflection.AssemblyProductAttribute("JetControl")]
 [assembly: System.Reflection.AssemblyTitleAttribute("JetControl")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

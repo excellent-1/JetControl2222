@@ -10,3 +10,4 @@ C:\JetControl2222Hz\src\JetControl\obj\Debug\net10.0\JetControl.dll
 C:\JetControl2222Hz\src\JetControl\obj\Debug\net10.0\refint\JetControl.dll
 C:\JetControl2222Hz\src\JetControl\obj\Debug\net10.0\JetControl.pdb
 C:\JetControl2222Hz\src\JetControl\obj\Debug\net10.0\ref\JetControl.dll
+C:\JetControl2222Hz\src\JetControl\obj\Debug\net10.0\JetControl.sourcelink.json

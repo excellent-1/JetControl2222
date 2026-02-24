@@ -100,3 +100,4 @@ C:\JetControl2222Hz\tests\JetControl.Tests\obj\Debug\net10.0\refint\JetControl.T
 C:\JetControl2222Hz\tests\JetControl.Tests\obj\Debug\net10.0\JetControl.Tests.pdb
 C:\JetControl2222Hz\tests\JetControl.Tests\obj\Debug\net10.0\JetControl.Tests.genruntimeconfig.cache
 C:\JetControl2222Hz\tests\JetControl.Tests\obj\Debug\net10.0\ref\JetControl.Tests.dll
+C:\JetControl2222Hz\tests\JetControl.Tests\obj\Debug\net10.0\JetControl.Tests.sourcelink.json

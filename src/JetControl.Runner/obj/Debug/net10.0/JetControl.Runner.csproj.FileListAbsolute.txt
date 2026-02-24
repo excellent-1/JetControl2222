@@ -18,3 +18,4 @@ C:\JetControl2222Hz\src\JetControl.Runner\obj\Debug\net10.0\refint\JetControl.Ru
 C:\JetControl2222Hz\src\JetControl.Runner\obj\Debug\net10.0\JetControl.Runner.pdb
 C:\JetControl2222Hz\src\JetControl.Runner\obj\Debug\net10.0\JetControl.Runner.genruntimeconfig.cache
 C:\JetControl2222Hz\src\JetControl.Runner\obj\Debug\net10.0\ref\JetControl.Runner.dll
+C:\JetControl2222Hz\src\JetControl.Runner\obj\Debug\net10.0\JetControl.Runner.sourcelink.json
