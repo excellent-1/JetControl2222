@@ -1,6 +1,6 @@
 ﻿# JetControl2222Hz (Illustrative Mission Computer + Flight Control Tick Loop)
 
-This repository is a **safe, illustrative** .NET project that demonstrates how to design a **high-rate “tick loop”** (targeting **2222 Hz**) using clean architecture practices: **composition over inheritance**, **SOLID**, and core **OOP principles**.
+This repository is a **safe, illustrative** .NET project that implements a **high-rate “tick loop”** (targeting **2222 Hz**) .
 
 It models (at a high level and with placeholder logic) a fighter-jet style software loop that runs:
 
