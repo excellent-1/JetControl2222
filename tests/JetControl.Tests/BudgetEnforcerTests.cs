@@ -17,7 +17,11 @@ public class BudgetEnforcerTests
     [Fact]
     public void BudgetEnforcingTask_Throws_WhenBudgetExceeded()
     {
-        var log = new LoggerConfiguration().CreateLogger();
+        var log = /* new LoggerConfiguration().CreateLogger();
+        Log.Logger */ new LoggerConfiguration()
+            .MinimumLevel.Warning()
+            .WriteTo.Console()
+            .CreateLogger();
         var wrapped = new BudgetEnforcingTask(new SlowTask(), log);
 
         var state = new JetState();

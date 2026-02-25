@@ -22,14 +22,23 @@ This is not real aircraft software. All thresholds/logic are placeholders to dem
 
 
 Repository Layout
+
   src/
+
   JetControl/ # Core library: loop, tasks, models, budget enforcement
+
   JetControl.Runner/ # Console demo runner
+
   tests/
+
   JetControl.Tests/ # xUnit unit tests + timing smoke tests (opt-in)
+
   .github/workflows/
+
   deployment.yml # GitHub Actions CI (build/test/publish artifact)
+
   Makefile # Local developer commands (make build/test/run)
+
   global.json # Pinned .NET SDK version (net10 preview)
 
 
