@@ -1,7 +1,5 @@
-﻿JetControl2222Hz (Illustrative Mission Computer + Flight Control Tick Loop)
-
-This repository is a safe, illustrative .NET project that implements a high-rate “tick loop” (targeting 2222 Hz) .
-
+## ﻿JetControl2222Hz (Illustrative Mission Computer + Flight Control Tick Loop)
+This repository is a safe, illustrative .NET project that implements a high-rate “tick loop” (targeting 2222 Hz).
 It models (at a high level and with placeholder logic) a fighter-jet style software loop that runs:
 
 - Airworthiness / Pre-Flight checks (Built-In Tests / BIT)
@@ -21,7 +19,7 @@ It models (at a high level and with placeholder logic) a fighter-jet style softw
 This is not real aircraft software. All thresholds/logic are placeholders to demonstrate software design, testing, and timing instrumentation patterns.
 
 
-Repository Layout
+## Repository Layout
 
   src/
 
@@ -42,7 +40,7 @@ Repository Layout
   global.json # Pinned .NET SDK version (net10 preview)
 
 
-## Quick Start (Windows PowerShell)
+## Quick Start
 From repo root:
 
 1) Restore dependencies
@@ -58,7 +56,7 @@ make test
 make run
 
 
-Core Concept: A “Tick Loop” Composed of Tasks
+## Core Concept: A “Tick Loop” Composed of Tasks
     
     FlightControlLoop
         The heart of the system is a loop that runs a list of tasks every tick:
